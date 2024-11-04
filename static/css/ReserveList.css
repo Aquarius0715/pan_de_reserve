@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    width: 100%;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.header {
+    background-color: lightgray;
+    height: 100px;
+    margin-bottom: 20px;
+}
+.buttons button{
+    padding-left: 5em;
+    padding-right: 5em;
+    font-size: large;
+}
+.header2{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.header2 a{
+    width: calc(100%/3 - 1em);
+    text-align: center;
+}
+.fotter{
+    position: absolute;
+    bottom: 0;
+    background-color: lightgray;
+    margin-bottom: 1em; 
+    width: 100%;
+    height: 3em;
+}
+.list{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%; 
+}
+.list a{
+    width: calc(100%/3 - 1em);
+    text-align: center;  
+    cursor: pointer;
+}
+.list   :hover{
+    background-color: lightgray;
+}
+.list input{
+    width: 1em;
+}
