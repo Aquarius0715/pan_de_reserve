@@ -40,15 +40,33 @@ body {
     display: flex;
     flex-wrap: wrap;
     width: 100%; 
+    cursor: pointer;
 }
+.lists { 
+    width: 100%;
+}
+.lists :hover{
+    background-color: lightgray;
+}
+
 .list a{
     width: calc(100%/3 - 1em);
     text-align: center;  
-    cursor: pointer;
-}
-.list   :hover{
-    background-color: lightgray;
 }
 .list input{
     width: 1em;
+}
+.details{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 10em;
+    background-color: lightgray;
+}
+.detail{
+    width: calc(100%/2);
+    text-align: center;
+}
+.detail a{
+    width: 100%;
 }

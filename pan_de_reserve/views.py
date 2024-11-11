@@ -12,4 +12,4 @@ def result(request):
 
 def ReserveList(request):
     return render(request,'pan_de_reserve/ReserveList.html')
-    
+
