@@ -1,8 +1,15 @@
 from django.shortcuts import render
 from django.views import View
+from .models import *
 
 def index(request):
-    return render(request, 'pan_de_reserve/index.html')
+    pans = BakeryItem.objects.values()
+    allergy = BakeryItemAllergy.objects.values()
+    dicts = {
+        'pans' : pans,
+        'allergy' : allergy,        
+    }
+    return render(request, 'pan_de_reserve/index.html',dicts)
 
 def nyuryoku(request):
     return render(request, 'pan_de_reserve/nyuryoku.html')

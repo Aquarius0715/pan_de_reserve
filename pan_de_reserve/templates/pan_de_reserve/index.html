@@ -89,37 +89,20 @@
         </div>
         
         <!-- Product list -->
+        {% for pan in pans %}
         <div class="product">
-            <img src="{% static "image.png" %}" alt="商品画像">
-            <p class="product-name">技評ドーナツ</p>
-            <p class="product-price">¥500(税込)</p>
+            <img src="{{ pan.image }}" alt="商品画像">
+            <p class="product-name">{{ pan.name }}</p>
+            <p class="product-price">¥{{ pan.price }}(税込)</p>
             <div class="quantity">
                 <button class="minus_button" id="down" >-</button>
                 <input type="text" value="0" class="inputtext" id="textbox"></input>
                 <button class="add_button" id="up">+</button>
             </div>
         </div>
-        
-        <div class="product">
-            <img src="{% static "image.png" %}" alt="商品画像">
-            <p class="product-name">技評ドーナツ</p>
-            <p class="product-price">¥500(税込)</p>
-            <div class="quantity">
-                <button class="minus_button" id="down" >-</button>
-                <input type="text" value="0" class="inputtext" id="textbox"></input>
-                <button class="add_button" id="up">+</button>
-            </div>
-        </div>
-
-        <div class="product">
-            <img src="{% static "image.png" %}" alt="商品画像">
-            <p class="product-name">技評ドーナツ</p>
-            <p class="product-price">¥500(税込)</p>
-            <div class="quantity">
-                <button class="minus_button" id="down" >-</button>
-                <input type="text" value="0" class="inputtext" id="textbox"></input>
-                <button class="add_button" id="up">+</button>
-            </div>
+        {% empty %}
+        <div>登録されているパンはありません</div>
+        {% endfor %}
         </div>
 
         <!-- Total and checkout -->
