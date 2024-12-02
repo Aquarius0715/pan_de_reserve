@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パン屋</title>
+    <link rel= "stylesheet" href="{% static '/css/ReserveList.css' %}">
+</head>
+
+<body>  
+    <div class="header">
+        <h1>pan</h1>
+    </div>
+    <!-- button menu -->
+    <div class="buttons">
+        <button type="button" ,class="reserve_list">予約一覧</button>
+        <button type="button" ,class="bread_list">パン一覧</button>
+        <button type="button" ,class="add_bread">パン追加</button>
+    </div>
+    <br><br><br>
+    <div class="menu">
+        <div class="header2">
+            <a>時間</a>
+            <a>氏名</a>
+            <a>予約内容</a>
+        </div>
+        <div class="lists">
+            <div class="list">
+                <a>10:20</a>
+                <a>パン太郎</a>
+                <a>アンパン1 カレーパン1 コロネ1</a>
+                <input type="checkbox">
+            </div>
+            <div class="list">
+                <a>10:20</a>
+                <a>パン太郎</a>
+                <a>アンパン1 カレーパン1 コロネ1</a>
+                <input type="checkbox">
+            </div>
+            <div class="list">
+                <a>10:20</a>
+                <a>パン太郎</a>
+                <a>アンパン1 カレーパン1 コロネ1</a>
+                <input type="checkbox">
+            </div>
+            <div class="list">
+                <a>10:20</a>
+                <a>パン太郎</a>
+                <a>アンパン1 カレーパン1 コロネ1</a>
+                <input type="checkbox">
+            </div>
+        </div>
+    </div>
+    <!-- フッター -->
+    <div class="fotter">
+        <h3>パン屋</h3>
+    </div>
+    <!-- javascript　読み込み -->
+    <script type="text/javascript" src="{% static 'js/ReserveList.js' %}"></script>
+</body>
+
+</html>
