@@ -1,8 +1,7 @@
 from django.db import models
 
 # Create your models here.
-
-from django.db import models
+#$ pip install pillow  # pipenvを利用している場合は pipenv install pillow
 
 class Allergy(models.Model):
     name = models.CharField(max_length=255)
@@ -11,8 +10,9 @@ class Allergy(models.Model):
         return self.name
 
 class BakeryItem(models.Model):
-    name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    name = models.CharField(max_length=255,verbose_name="名前")
+    price = models.DecimalField(max_digits=10, decimal_places=2,verbose_name="価格")
+    image = models.ImageField(upload_to='images/',null=True,blank=True,verbose_name="商品画像")
 
     def __str__(self):
         return self.name
