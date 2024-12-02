@@ -8,4 +8,4 @@ urlpatterns = [
 	path('nyuryoku/', views.nyuryoku, name="nyuryoku"),
 	path('result/', views.result, name="result"),
     path('ReserveList/',views.ReserveList,name="ReserveList"),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
