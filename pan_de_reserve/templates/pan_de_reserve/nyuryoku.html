@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>パン屋</title>
@@ -54,6 +55,20 @@
             <div class="header">
                 <h1>パン屋</h1>
             </div>
+            <p>{{ message }}</p>
+            <table>
+                <form action="{% url 'webapp:nyuryoku' %}" method="post">
+                  {% csrf_token %}
+                  {{ form1.as_table }}
+                  <!-- {{ form2.as_table }} -->
+                  <tr>
+                    <td></td>
+                    <td><input type="submit" value="送信"></td>
+                  </tr>
+                </form>
+              </table>
+            <!-- {% csrf_token %} -->
+            <!-- {{ form.as_table }} -->
             <h1>名前</h1>
             <input type="text" id="nameInput" placeholder="名前を入力">
             <h1>来店時間</h1>
@@ -63,7 +78,6 @@
             <div class="total">
                 <p>合計 0円</p>
             </div>
-
 
             <div class="checkout">
                 <button class="checkout-button">確定</button>
