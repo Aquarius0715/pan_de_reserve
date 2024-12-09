@@ -25,10 +25,10 @@ class BakeryItemAllergy(models.Model):
         return f"{self.bakery_item.name} - {self.allergy.name}"
 
 class Reservation(models.Model):
-    receive_time = models.DateTimeField()
-    customer_name = models.CharField(max_length=255)
-    customer_phone_number = models.CharField(max_length=20)
-    is_received = models.BooleanField()
+    receive_time = models.DateTimeField(verbose_name="受取時間")
+    customer_name = models.CharField(max_length=255,verbose_name="名前")
+    customer_phone_number = models.CharField(max_length=20,verbose_name="電話番号")
+    is_received = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Reservation for {self.customer_name} at {self.receive_time}"
@@ -36,6 +36,7 @@ class Reservation(models.Model):
 class ReservationDetail(models.Model):
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
     bakery_item = models.ForeignKey(BakeryItem, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return f"Reservation {self.reservation.id} - {self.bakery_item.name}"
+        return f"Reservation {self.reservation.id} - {self.bakery_item.name}(x{self.quantity})"

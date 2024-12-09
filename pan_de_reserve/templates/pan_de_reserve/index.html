@@ -91,7 +91,7 @@
         <!-- Product list -->
         {% for pan in pans %}
         <div class="product">
-            <img src="{{ pan.image }}" alt="商品画像">
+            <img src="{% static '/media/' %}{{ pan.image }}" alt="商品画像">
             <p class="product-name">{{ pan.name }}</p>
             <p class="product-price">¥{{ pan.price }}(税込)</p>
             <div class="quantity">
