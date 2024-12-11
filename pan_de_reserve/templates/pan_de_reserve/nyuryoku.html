@@ -1,108 +1,127 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>パン屋</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                width: 100%;
-            }
-            .container {
-                width: 80%;
-                margin: 0 auto;
-            }
-            .checkout {
-                text-align: right;
-                margin-top: 20px;
-            }
-            .checkout button {
-                background-color: pink;
-                border: none;
-                padding: 10px;
-                cursor: pointer;
-            }
-            .header {
-                background-color: lightgray;
-                height: 100px;
-                margin-bottom: 20px;
-            }
-            .inputtext {
-                color:rgba(43, 32, 32, 0.76) ;
-                font-size: 18px;
-                border-left: 0;
-                border-right: 0;
-                width: 80px;
-                line-height: 3rem;
-                text-align: center;
-                border: 1px solid #D7DBDD;
-                padding: 0 10px;
-            }
-            .total {
-                text-align: left;
-                font-size: 40px;
-                margin-top: 20px;
-            }
-        </style>
-    </head>
-    <body>
-        {% load static %}
-        <div class="container">
-            <!-- Header section -->
-            <div class="header">
-                <h1>パン屋</h1>
-            </div>
-            <p>{{ message }}</p>
-            <table>
-                <form action="{% url 'webapp:nyuryoku' %}" method="post">
-                  {% csrf_token %}
-                  {{ form1.as_table }}
-                  <!-- {{ form2.as_table }} -->
-                  <tr>
-                    <td></td>
-                    <td><input type="submit" value="送信"></td>
-                  </tr>
-                </form>
-              </table>
-            <!-- {% csrf_token %} -->
-            <!-- {{ form.as_table }} -->
-            <h1>名前</h1>
-            <input type="text" id="nameInput" placeholder="名前を入力">
-            <h1>来店時間</h1>
-            <input type="text" id="timeInput" placeholder="来店時間を入力">
-            <h1>注文内容</h1>
-            <input type="text" value="あんぱん" class="inputtext" id="order"></input>
-            <div class="total">
-                <p>合計 0円</p>
-            </div>
 
-            <div class="checkout">
-                <button class="checkout-button">確定</button>
-            </div>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パン屋</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            width: 100%;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .checkout {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .checkout input {
+            background-color: pink;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .header {
+            background-color: lightgray;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+
+        .inputtext {
+            color: black;
+            background-color: #D7DBDD;
+            font-size: 18px;
+            border-left: 0;
+            border-right: 0;
+            width: auto;
+            line-height: 3rem;
+            text-align: center;
+            border: 1px solid #D7DBDD;
+            padding: 0 10px;
+        }
+
+        .total {
+            text-align: left;
+            font-size: 40px;
+            margin-top: 20px;
+        }
+        .msg {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    {% load static %}
+    <div class="container">
+        <!-- Header section -->
+        <div class="header">
+            <h1>パン屋</h1>
         </div>
+        <p class="msg">{{ msg }}</p>
+        <!-- {{ form.as_table }} -->
+        <form action="{% url 'webapp:nyuryoku' %}" method="post">
+            {% csrf_token %}
+            <h1>名前</h1>
+            <input type="text" id="nameInput" placeholder="名前を入力" name="customer_name">
+            <h1>来店時間</h1>
+            <input type="text" id="timeInput" placeholder="来店時間を入力" name="receive_time">
+            <h1>電話番号</h1>
+            <input type="text" id="phoneInput" placeholder="来店時間を入力" name="customer_phone_number">
+            <h1>注文内容</h1>
 
-        <script>
-            const nameInput = document.getElementById('nameInput');
-            const timeInput = document.getElementById('timeInput');
-            const saveButton = document.getElementById('saveButton');
-            const checkoutButton = document.querySelector('.checkout-button');
-            
-            const totalPrice = localStorage.getItem('totalPrice');
-            const totalElement = document.querySelector('.total p');//class="total"直下のp
-            totalElement.textContent = `合計 ${totalPrice}円`;
-            
-            checkoutButton.addEventListener('click', () => {
-                const name = nameInput.value;
-                const time = timeInput.value;
-                if(name && time){
-                    localStorage.setItem('name',name);
-                    localStorage.setItem('time',time);
-                    window.location.href = '/result';
-                }
-            });
-        </script>
-    </body>
+            <textarea value= "{{ order }}" class="inputtext" id="order" name="pan" readonly>{{ order }}</textarea>
+            <div class="total">
+                <p>{{ totalPrice }}</p>
+            </div>
+            <div class="checkout">
+                <input type="submit" class="checkout-button" value="確定">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const nameInput = document.getElementById('nameInput');
+        const timeInput = document.getElementById('timeInput');
+        const saveButton = document.getElementById('saveButton');
+        const checkoutButton = document.querySelector('.checkout-button');
+        const order = document.getElementById('order')
+        const totalPrice = localStorage.getItem('totalPrice');
+        // const products = localStorage.getItem('products')
+        // const totalElement = document.querySelector('.total p');//class="total"直下のp
+        // totalElement.textContent = `合計 ${totalPrice}円`;
+
+        // let buy_list = ""
+
+        // for (let i = 0;i < products.length;i++){
+        //     const product_name = products.querySelector('.product-name');
+        //     const inputnum = products[i].querySelector('.inputtext');
+        //     buy_list += `${product_name}×${inputnum}個\n`;
+        // }
+        // order.textContent = buy_list;
+        // println(buy_list);
+
+
+        checkoutButton.addEventListener('click', () => {
+            const name = nameInput.value;
+            const time = timeInput.value;
+            if (name && time) {
+                localStorage.setItem('name', name);
+                localStorage.setItem('time', time);
+                window.location.href = '/result';
+            }
+        });
+    </script>
+</body>
+
 </html>
