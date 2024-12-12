@@ -173,7 +173,7 @@
                 const num = event.target.value - count;
                 count = count + num
                 totalPrice += pricePerItem * num;
-                totalElement.textContent = `合計 ${totalPrice}円`;
+                totalElement.value = `合計 ${totalPrice}円`;
             });
         });
 
