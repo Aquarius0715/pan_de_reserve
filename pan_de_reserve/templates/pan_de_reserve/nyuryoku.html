@@ -77,10 +77,10 @@
             <h1>来店時間</h1>
             <input type="text" id="timeInput" placeholder="来店時間を入力" name="receive_time">
             <h1>電話番号</h1>
-            <input type="text" id="phoneInput" placeholder="来店時間を入力" name="customer_phone_number">
+            <input type="text" id="phoneInput" placeholder="電話番号を入力" name="customer_phone_number">
             <h1>注文内容</h1>
 
-            <textarea value= "{{ order }}" class="inputtext" id="order" name="pan" readonly>{{ order }}</textarea>
+            <textarea value= "{{ order }}" class="inputtext" id="order" name="order" readonly>{{ order }}</textarea>
             <div class="total">
                 <p>{{ totalPrice }}</p>
             </div>
@@ -97,19 +97,6 @@
         const checkoutButton = document.querySelector('.checkout-button');
         const order = document.getElementById('order')
         const totalPrice = localStorage.getItem('totalPrice');
-        // const products = localStorage.getItem('products')
-        // const totalElement = document.querySelector('.total p');//class="total"直下のp
-        // totalElement.textContent = `合計 ${totalPrice}円`;
-
-        // let buy_list = ""
-
-        // for (let i = 0;i < products.length;i++){
-        //     const product_name = products.querySelector('.product-name');
-        //     const inputnum = products[i].querySelector('.inputtext');
-        //     buy_list += `${product_name}×${inputnum}個\n`;
-        // }
-        // order.textContent = buy_list;
-        // println(buy_list);
 
 
         checkoutButton.addEventListener('click', () => {
