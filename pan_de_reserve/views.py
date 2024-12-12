@@ -30,8 +30,8 @@ def index(request):
 
 def nyuryoku(request):
     db = SQLiteManager("db.sqlite3")
-    insert_reservation_sql = """INSERT INTO pan_de_reserve_reservation VALUES (?, ?, ?, ?, ?)"""
-    insert_reservation_detail_sql = """INSERT INTO pan_de_reserve_reservationdetail VALUES (?, ?, ?, ?)"""
+    insert_reservation_sql = """INSERT INTO pan_de_reserve_reservation (id,receive_time,customer_name,customer_phone_number,is_received ) VALUES (?, ?, ?, ?, ?)"""
+    insert_reservation_detail_sql = """INSERT INTO pan_de_reserve_reservationdetail (id,bakery_item_id,reservation_id,quantity) VALUES (?, ?, ?, ?)"""
     message = ""
     
     if (request.method == 'POST'):
@@ -55,11 +55,11 @@ def nyuryoku(request):
             pan_ids.extend([re[0] for re in results])
 
         params = (
+        str(this_uuid).replace('-',''),
         request.POST['receive_time'],  # 受取時間
         request.POST['customer_name'],             # 顧客名
         request.POST['customer_phone_number'],        # 電話番号
         0,                  # 受取状況
-        str(this_uuid).replace('-',''),
         )
         try:
             rows_affected = db.execute(insert_reservation_sql, params)
@@ -85,10 +85,10 @@ def nyuryoku(request):
                 flag = 0
                 new_uuid = uuid.uuid4()
                 params = (
+                    str(new_uuid).replace('-',''),  
                     pan_ids[i],
                     str(this_uuid).replace('-',''),
                     quantities[i],
-                    str(new_uuid).replace('-',''),
                 )
                 rows_affected = db.execute(insert_reservation_detail_sql,params)
                 print(f"新しい予約詳細を {rows_affected} 件追加しました")
