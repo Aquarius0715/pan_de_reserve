@@ -38,3 +38,5 @@ def result(request):
 def ReserveList(request):
     return render(request,'pan_de_reserve/ReserveList.html')
 
+def pan_add(request):
+    return render(request,'pan_de_reserve/pan_add.html')

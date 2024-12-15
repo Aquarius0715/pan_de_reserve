@@ -10,4 +10,5 @@ urlpatterns = [
 	path('nyuryoku/', views.nyuryoku, name="nyuryoku"),
 	path('result/', views.result, name="result"),
     path('ReserveList/',views.ReserveList,name="ReserveList"),
+    path('pan_add/',views.pan_add,name="pan_add"),
 ]+ static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
