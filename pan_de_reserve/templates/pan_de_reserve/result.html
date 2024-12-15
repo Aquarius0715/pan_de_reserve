@@ -1,12 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>パン屋</title>
     <link rel="stylesheet" href="{% static 'css/ReserveList.css' %}">
 </head>
+
 <body>
       <div class="container">
         <!-- Header section -->
@@ -26,6 +27,7 @@
             <button class="checkout-button">レジに進む</button>
         </div>
     </div>
+    
     <script>
         const products = document.querySelectorAll('.product');
         const savedTime = localStorage.getItem('time');
@@ -39,7 +41,7 @@
         const checkoutButton = document.querySelector('.checkout-button');
         checkoutButton.addEventListener('click', () => {
             // 遷移先のURLを指定
-            window.location.href = '/add_pan'; // ここを遷移先のページに変更
+            window.location.href = '/'; // ここを遷移先のページに変更
         });
 
     </script>
