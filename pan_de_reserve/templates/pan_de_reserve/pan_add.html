@@ -1,0 +1,55 @@
+{% load static %}
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パン屋</title>
+    <link rel="stylesheet" href="{% static 'css/ReserveList.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header section -->
+        <div class="header">
+            <h1>パン屋</h1>
+        </div>
+
+    <div class="item-details">
+        <table class="details-table">
+            <tr>
+                <td class="label">なまえ</td>
+                <td><input type="text" name="name" placeholder="商品名を入力" class="input-field"></td>
+            </tr>
+            <tr>
+                <td class="label">ねだん</td>
+                <td><input type="number" name="price" placeholder="価格を入力" class="input-field"></td>
+            </tr>
+            <tr>
+                <td class="label">アレルギー</td>
+                <td><input type="text" name="allergy" placeholder="アレルギー情報を入力" class="input-field"></td>
+            </tr>
+            <tr>
+                <td class="label">説明</td>
+                <td><textarea name="description" placeholder="商品説明を入力" class="textarea-field"></textarea></td>
+            </tr>
+            <tr>
+                <td class="label">画像</td>
+                <td><input type="file" name="image" class="file-field"></td>
+            </tr>
+        </table>
+
+        <!-- Total and checkout -->
+        <div class="checkout">
+            <button class="checkout-button">最初に戻る</button>
+        </div>
+    </div> 
+    <script>
+        
+        const checkoutButton = document.querySelector('.checkout-button');
+        checkoutButton.addEventListener('click', () => {
+            // 遷移先のURLを指定
+            window.location.href = '/'; // ここを遷移先のページに変更
+        });
+
+    </script>
+</body>
+</html>
