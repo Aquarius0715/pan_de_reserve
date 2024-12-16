@@ -21,6 +21,7 @@ class SQLiteManager:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute(sql, params)
+                conn.commit()
                 results = cursor.fetchall()
             return results
         except sqlite3.Error as e:

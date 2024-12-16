@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,45 +11,54 @@
             margin: 0;
             width: 100%;
         }
+
         .container {
             width: 80%;
             margin: 0 auto;
         }
+
         .product {
             display: flex;
             justify-content: space-between;
             margin: 10px 0;
         }
+
         .product img {
             width: 200px;
             height: 200px;
             background-color: lightgray;
         }
+
         .quantity {
             display: flex;
             align-items: center;
         }
+
         .checkout {
             text-align: right;
             margin-top: 20px;
         }
+
         .checkout button {
             background-color: pink;
             border: none;
             padding: 10px;
             cursor: pointer;
         }
+
         .total {
             text-align: right;
             margin-top: 10px;
         }
+
         .header {
             background-color: lightgray;
             height: 100px;
             margin-bottom: 20px;
         }
+
         .add_button {
-            color:rgba(43, 32, 32, 0.76) ;
+            color: rgba(43, 32, 32, 0.76);
             font-size: 18px;
             cursor: pointer;
             padding: 5px 25px;
@@ -57,8 +67,9 @@
             border-radius: 0;
             outline: 0;
         }
+
         .minus_button {
-            color:rgba(43, 32, 32, 0.76) ;
+            color: rgba(43, 32, 32, 0.76);
             font-size: 18px;
             cursor: pointer;
             padding: 5px 25px;
@@ -67,8 +78,9 @@
             border-radius: 0;
             outline: 0;
         }
+
         .inputtext {
-            color:rgba(43, 32, 32, 0.76) ;
+            color: black;
             font-size: 18px;
             border-left: 0;
             border-right: 0;
@@ -77,45 +89,58 @@
             text-align: center;
             border: 1px solid #D7DBDD;
             padding: 0 10px;
+            -moz-appearance: textfield;
+        }
+
+        .inputtext::-webkit-inner-spin-button,
+        .inputtext::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .totalPrice:read-only {
+            background-color: white;
+            font-size: larger;
         }
     </style>
 </head>
+
 <body>
     {% load static %}
-      <div class="container">
-        <!-- Header section -->
-        <div class="header">
-            <h1>パン屋</h1>
-        </div>
-        
-        <!-- Product list -->
-        {% for pan in pans %}
-        <div class="product">
-            <img src="{% static '/media/' %}{{ pan.image }}" alt="商品画像">
-            <p class="product-name">{{ pan.name }}</p>
-            <p class="product-price">¥{{ pan.price }}(税込)</p>
-            <div class="quantity">
-                <button class="minus_button" id="down" >-</button>
-                <input type="text" value="0" class="inputtext" id="textbox"></input>
-                <button class="add_button" id="up">+</button>
+    <form action="{% url 'webapp:index' %}" method="post">
+        <div class="container">
+            {% csrf_token %}
+            <!-- Header section -->
+            <div class="header">
+                <h1>パン屋</h1>
             </div>
+            <!-- Product list -->
+            {% for pan in pans %}
+            <div class="product">
+                <img src="{% static '/media/' %}{{ pan.image }}" alt="商品画像">
+                <p class="product-name">{{ pan.name }}</p>
+                <p class="product-price">¥{{ pan.price }}(税込)</p>
+                <div class="quantity">
+                    <input class="minus_button" id="down" type="button" value="-">
+                    <input type="number" value=0 class="inputtext" id="textbox" name="quantity">
+                    <input class="add_button" id="up" type="button" value="+">
+                </div>
+            </div>
+            {% empty %}
+            <div>登録されているパンはありません</div>
+            {% endfor %}
         </div>
-        {% empty %}
-        <div>登録されているパンはありません</div>
-        {% endfor %}
-        </div>
-
-        <!-- Total and checkout -->
         <div class="total">
-            <p>合計 0円</p>
+            <input type="text" name="totalPrice" value="合計 0 円" class="totalPrice" readonly>
         </div>
         <div class="checkout">
-            <button class="checkout-button">レジに進む</button>
+            <input type="submit" class="checkout-button" value="レジに進む">
         </div>
+    </form>
     </div>
     <script>
         const products = document.querySelectorAll('.product');
-        const totalElement = document.querySelector('.total p');
+        const totalElement = document.querySelector('.totalPrice');
         let totalPrice = 0;  // 初期合計金額
 
         products.forEach((product) => {
@@ -124,7 +149,7 @@
             const downButton = product.querySelector('.minus_button');
             const textbox = product.querySelector('.inputtext');
             const priceText = product.querySelector('.product-price').textContent;
-            
+
             // 商品価格を取得し、数値部分だけを抽出する
             const pricePerItem = parseInt(priceText.match(/\d+/)[0], 10);
 
@@ -132,7 +157,7 @@
                 count++;
                 textbox.value = count;
                 totalPrice += pricePerItem;
-                totalElement.textContent = `合計 ${totalPrice}円`;
+                totalElement.value = `合計 ${totalPrice}円`;
             });
 
             downButton.addEventListener('click', () => {
@@ -140,18 +165,29 @@
                     count--;
                     textbox.value = count;
                     totalPrice -= pricePerItem;
-                    totalElement.textContent = `合計 ${totalPrice}円`;
+                    totalElement.value = `合計 ${totalPrice}円`;
                 }
-            });            
+            });
+
+            textbox.addEventListener('input', (event) => {
+                const num = event.target.value - count;
+                count = count + num
+                totalPrice += pricePerItem * num;
+                totalElement.value = `合計 ${totalPrice}円`;
+            });
         });
-        
+
         const checkoutButton = document.querySelector('.checkout-button');
         checkoutButton.addEventListener('click', () => {
             // 遷移先のURLを指定
-            localStorage.setItem('totalPrice', totalPrice);
-            window.location.href = '/nyuryoku'; // ここを遷移先のページに変更
+            // localStorage.setItem('totalPrice', totalPrice);
+            // localStorage.setItem('products',products)
+            // window.location.href = '/nyuryoku'; // ここを遷移先のページに変更
         });
+
+
 
     </script>
 </body>
+
 </html>
