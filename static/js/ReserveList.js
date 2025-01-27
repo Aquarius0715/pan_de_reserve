@@ -32,3 +32,20 @@ lists.forEach((list) => {
         }
     });
 });
+// ボタンのクリックイベント
+// URLの訂正が必要
+const reserveListBtn = document.querySelector('.reserve_list');
+const breadListBtn = document.querySelector('.bread_list');
+const addBreadBtn = document.querySelector('.add_bread');
+
+reserveListBtn.addEventListener('click', () => {
+    window.location.href = '/ReserveList';
+});
+
+breadListBtn.addEventListener('click', () => {
+    window.location.href = '/';
+});
+
+addBreadBtn.addEventListener('click', () => {
+    window.location.href = '/admin/pan_de_reserve/bakeryitem/add/';
+});
