@@ -125,9 +125,7 @@ def ReserveList(request):
     db_manager = SQLiteManager("db.sqlite3")
     reservation_service = ReservationService(db_manager)
     reservations = reservation_service.get_reservations()
-    context = {
-        'reservations': reservations
-    }
+
     if request.method == 'POST':
         reservation_id = request.POST.get('reservation_id')
         print(reservation_id)
@@ -137,12 +135,11 @@ def ReserveList(request):
             
             if rows_affected > 0:
                 reservation_service = ReservationService(db_manager)
-                context = {'reservations': reservations}
-                # return render(request,'pan_de_reserve/ReserveList.html',context) 
-                redirect('pan_de_reserve/ReserveList.html') # 削除後、予約一覧ページにリダイレクト
+                return redirect('webapp:ReserveList')# 削除後、予約一覧ページにリダイレクト
             else:
                 return HttpResponse("予約の削除に失敗しました。", status=500)
         else:
             return HttpResponse("予約IDが不正です。", status=400)
+    context = {'reservations': reservations}
     return render(request,'pan_de_reserve/ReserveList.html',context)
 
