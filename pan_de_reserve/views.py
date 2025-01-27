@@ -4,7 +4,7 @@ from .models import *
 from .forms import *
 from .SQLiteManager import * 
 import uuid
-from .ReserveList import *
+from .ReserveList import ReservationService
 from django.http import HttpResponse
 
 def index(request):
@@ -138,7 +138,8 @@ def ReserveList(request):
             if rows_affected > 0:
                 reservation_service = ReservationService(db_manager)
                 context = {'reservations': reservations}
-                return render(request,'pan_de_reserve/ReserveList.html',context)  # 削除後、予約一覧ページにリダイレクト
+                # return render(request,'pan_de_reserve/ReserveList.html',context) 
+                redirect('pan_de_reserve/ReserveList.html') # 削除後、予約一覧ページにリダイレクト
             else:
                 return HttpResponse("予約の削除に失敗しました。", status=500)
         else:
