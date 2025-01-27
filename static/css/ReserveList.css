@@ -1,72 +1,141 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
-    width: 100%;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
 }
 
 .container {
-    width: 80%;
+    width: 90%;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 .header {
-    background-color: lightgray;
-    height: 100px;
-    margin-bottom: 20px;
-}
-.buttons button{
-    padding-left: 5em;
-    padding-right: 5em;
-    font-size: large;
-}
-.header2{
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-}
-.header2 a{
-    width: calc(100%/3 - 1em);
-    text-align: center;
-}
-.fotter{
-    position: absolute;
-    bottom: 0;
-    background-color: lightgray;
-    margin-bottom: 1em; 
-    width: 100%;
-    height: 3em;
-}
-.list{
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%; 
-    cursor: pointer;
-}
-.lists { 
-    width: 100%;
-}
-.lists :hover{
-    background-color: lightgray;
+    background-color: gray;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.list a{
-    width: calc(100%/3 - 1em);
-    text-align: center;  
-}
-.list input{
-    width: 1em;
-}
-.details{
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    height: 10em;
-    background-color: lightgray;
-}
-.detail{
-    width: calc(100%/2);
+.header h1 {
+    margin: 0;
+    color: white;
     text-align: center;
+    font-size: 2.2em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
-.detail a{
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.buttons button {
+    padding: 8px 16px;
+    font-size: 0.9em;
+    margin: 0 8px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttons button:hover {
+    background-color: #27ae60;
+}
+
+.menu {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.header2 {
+    display: flex;
+    background-color: #34495e;
+    color: white;
+    padding: 12px 0;
+}
+
+.header2 a, .list a {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ecf0f1;
+    transition: background-color 0.3s ease;
+}
+
+.list:hover {
+    background-color: #f0f0f0;
+}
+
+.list input[type="submit"][name="delete"] {
+    background-color: #ff0000;
+    color: #000000;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.8em;
+    transition: background-color 0.3s ease;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.list input[type="submit"][name="delete"]:hover {
+    background-color: #cc0000;
+}
+
+.fotter {
+    background-color: #34495e;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    bottom: 0;
     width: 100%;
+}
+
+.fotter h3 {
+    margin: 0;
+    font-size: 1em;
+}
+
+@media (max-width: 768px) {
+    .buttons {
+        flex-direction: column;
+    }
+    
+    .buttons button {
+        margin: 5px 0;
+    }
+    
+    .list {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 0;
+    }
+    
+    .list a {
+        width: 100%;
+        text-align: left;
+        padding: 5px 10px;
+    }
+    
+    .list input[type="submit"][name="delete"] {
+        margin-left: 10px;
+        margin-top: 5px;
+    }
 }

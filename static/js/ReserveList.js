@@ -21,7 +21,7 @@ lists.forEach((list) => {
             new_element = document.createElement('p');
             new_element.innerHTML = `<div class="details">
                 <div class="detail">                
-                    <p><a>時間 </a><a>`+ elm[0].textContent + `</a></p>
+                    <p><a>日時   </a><a>`+ elm[0].textContent + `</a></p>
                     <p><a>氏名 </a><a>`+ elm[1].textContent + `</a></p>
                 </div>
                 <div class="detail">

@@ -26,31 +26,24 @@
             <a>氏名</a>
             <a>予約内容</a>
         </div>
-        <div class="lists">
+
+            {% for reservation in reservations %}
             <div class="list">
-                <a>10:20</a>
-                <a>パン太郎</a>
-                <a>アンパン1 カレーパン1 コロネ1</a>
-                <input type="checkbox">
+                <a>{{reservation.receive_time}}</a>
+                <a>{{reservation.customer_name}}</a>
+                <a>
+                {% for detail in reservation.details %}
+                {{detail.bakery_item.name}}×
+                {{detail.quantity}},
+                {% endfor %}
+                </a>    
+                <form action="{% url 'webapp:ReserveList' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+                    <input type="submit" name="delete" value="削除">
+            </form>
             </div>
-            <div class="list">
-                <a>10:20</a>
-                <a>パン太郎</a>
-                <a>アンパン1 カレーパン1 コロネ1</a>
-                <input type="checkbox">
-            </div>
-            <div class="list">
-                <a>10:20</a>
-                <a>パン太郎</a>
-                <a>アンパン1 カレーパン1 コロネ1</a>
-                <input type="checkbox">
-            </div>
-            <div class="list">
-                <a>10:20</a>
-                <a>パン太郎</a>
-                <a>アンパン1 カレーパン1 コロネ1</a>
-                <input type="checkbox">
-            </div>
+            {% endfor %}
         </div>
     </div>
     <!-- フッター -->

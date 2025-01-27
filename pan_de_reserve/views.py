@@ -4,6 +4,8 @@ from .models import *
 from .forms import *
 from .SQLiteManager import * 
 import uuid
+from .ReserveList import *
+from django.http import HttpResponse
 
 def index(request):
     pans = BakeryItem.objects.values()
@@ -120,5 +122,26 @@ def result(request):
     return render(request, 'pan_de_reserve/result.html')
 
 def ReserveList(request):
-    return render(request,'pan_de_reserve/ReserveList.html')
+    db_manager = SQLiteManager("db.sqlite3")
+    reservation_service = ReservationService(db_manager)
+    reservations = reservation_service.get_reservations()
+    context = {
+        'reservations': reservations
+    }
+    if request.method == 'POST':
+        reservation_id = request.POST.get('reservation_id')
+        print(reservation_id)
+        if reservation_id:            
+            # 削除処理
+            rows_affected = reservation_service.delete_reservation(reservation_id)
+            
+            if rows_affected > 0:
+                reservation_service = ReservationService(db_manager)
+                context = {'reservations': reservations}
+                return render(request,'pan_de_reserve/ReserveList.html',context)  # 削除後、予約一覧ページにリダイレクト
+            else:
+                return HttpResponse("予約の削除に失敗しました。", status=500)
+        else:
+            return HttpResponse("予約IDが不正です。", status=400)
+    return render(request,'pan_de_reserve/ReserveList.html',context)
 
